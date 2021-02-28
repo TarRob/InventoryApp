@@ -12,10 +12,30 @@ export class ProductComponent implements OnInit {
   productForm: FormGroup;
   @Input() product;
 
+  deviceType = 'tablet';
+
+  deviceTypes = [{
+    name: 'Tablet',
+    icon: 'tablet',
+  }, {
+    name: 'Laptop',
+    icon: 'computer'
+  }, {
+    name: 'Phone',
+    icon: 'mobile'
+  }, {
+    name: 'Monitor',
+    icon: 'display'
+  }];
+  
+  selectDevice(device) {
+    this.deviceType = device.icon;
+  }
+
   constructor(private fb: FormBuilder) {
-    
+
     this.productForm = this.fb.group({
-      
+
       basic: fb.group({
         name: '',
         description: '',
@@ -24,7 +44,7 @@ export class ProductComponent implements OnInit {
           fb.control('')
         ])
       }),
-      
+
       expiration: fb.group({
         expirationDate: null,
       })
@@ -35,5 +55,5 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  handleClose() {}
+  handleClose() { }
 }
