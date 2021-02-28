@@ -5,13 +5,12 @@
     clrWizardSize="lg"
     (clrWizardOnCancel)="handleClose()"
   >
-    <clr-wizard-title>{{
-      product ? "Edit Product" : "Add New
-    Product"
-    }}</clr-wizard-title>
-    <clr-wizard-button [type]="'cancel'" (click)="handleClose()"
-      >Cancel</clr-wizard-button
-    >
+    <clr-wizard-title>
+      {{ product ? "Edit Product" : "Add New Product" }}
+    </clr-wizard-title>
+    <clr-wizard-button [type]="'cancel'" (click)="handleClose()">
+      Cancel
+    </clr-wizard-button>
     <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
     <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
     <clr-wizard-button [type]="'finish'" (click)="handleClose()"
@@ -29,7 +28,7 @@
           >
             <div class="card-block">
               <p class="card-text">
-                {{item.name}}
+                {{ item.name }}
                 <clr-icon [attr.shape]="item.icon"></clr-icon>
               </p>
             </div>
@@ -39,9 +38,53 @@
     </clr-wizard-page>
     <clr-wizard-page>
       <ng-template clrPageTitle>Basic Info</ng-template>
+      <div formGroupName="basic">
+        <clr-input-container>
+          <label for="product-name">Product Name *</label>
+          <input
+            clrInput
+            type="text"
+            id="product-name"
+            placeholder="IPhone X..."
+            formControlName="name"
+          />
+        </clr-input-container>
+        <div class="toggle-switch">
+          <input type="checkbox" id="active" formControlName="active" />
+          <label for="active">Active</label>
+        </div>
+        <clr-textarea-container>
+          <label for="description">Product Description</label>
+          <textarea
+            clrTextarea
+            id="description"
+            placeholder="Enter
+            description here..."
+            formControlName="description"
+          ></textarea>
+        </clr-textarea-container>
+        <label class="clr-control-label">Features</label>
+        <clr-input-container
+          formArrayName="features"
+          *ngFor="let control of basicFeatures.controls"
+        >
+          <input
+            clrInput
+            type="text"
+            [formControl]="control"
+            placeholder="IPhone X..."
+          />
+        </clr-input-container>
+        <button class="btn btn-primary" (click)="addFeature()">
+          Add Feature
+        </button>
+      </div>
     </clr-wizard-page>
     <clr-wizard-page>
       <ng-template clrPageTitle>Expiration Info</ng-template>
+      <clr-input-container formGroupName="expiration">
+        <input type="date" clrInput clrDate formControlName="expirationDate" />
+      </clr-input-container>
     </clr-wizard-page>
   </clr-wizard>
 </form>
