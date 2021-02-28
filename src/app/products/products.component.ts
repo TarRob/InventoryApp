@@ -35,4 +35,6 @@ export class ProductsComponent {
     
     this.productsService.removeProduct(this.productToBeDeleted);
   }
+
+  addProduct() { }
 }
